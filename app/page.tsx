@@ -64,9 +64,40 @@ const SECTIONS = [
 const FEATURED_EXTENSIONS = (extensionsData as VsCodeExtension[]).filter((e) => e.featured).slice(0, 3);
 const FEATURED_COMMANDS = (cliData as CliCommand[]).slice(0, 3);
 
+// Schema.org Organization markup
+function OrganizationJsonLd() {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'DCYFR',
+          url: 'https://dcyfr.work',
+          description:
+            'CLI reference, VS Code extensions, developer profiles, and workspace health tooling for the DCYFR ecosystem.',
+          sameAs: [
+            'https://github.com/dcyfr',
+            'https://dcyfr.io',
+            'https://dcyfr.app',
+            'https://dcyfr.bot',
+          ],
+          contactPoint: {
+            '@type': 'ContactPoint',
+            email: 'hello@dcyfr.dev',
+            contactType: 'customer support',
+          },
+        }),
+      }}
+    />
+  );
+}
+
 export default function HomePage() {
   return (
     <>
+      <OrganizationJsonLd />
       {/* Hero */}
       <section className="border-b border-primary/80/40 bg-gradient-to-b from-primary/40 to-background">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
