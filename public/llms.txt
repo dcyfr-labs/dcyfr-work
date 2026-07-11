@@ -1,0 +1,11 @@
+# DCYFR Work
+
+> CLI reference, VS Code extensions, developer profiles, and workspace health tooling for the DCYFR ecosystem.
+
+## Pages
+- [Home](https://dcyfr.work/): Developer tools for the DCYFR ecosystem — CLI reference, extensions, identity, and workspace health.
+- [CLI Reference](https://dcyfr.work/cli): Complete reference for @dcyfr/ai-cli commands — agent run, delegate, workspace health, OpenSpec, and more.
+- [VS Code Extensions](https://dcyfr.work/extensions): Official DCYFR extensions for Claude Code integration, workspace status, snippet runner, and TLP classification labels.
+- [Developer Profiles](https://dcyfr.work/profiles): Sign in with GitHub to create your DCYFR developer profile, showcase projects, and earn badges.
+- [Community](https://dcyfr.work/community): Job board, contributor leaderboard, article highlights, and community links for DCYFR developers.
+- [Workspace Health](https://dcyfr.work/health): One-click reachability check across all DCYFR TLDs with exportable JSON diagnostic report.
