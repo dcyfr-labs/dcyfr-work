@@ -81,7 +81,7 @@ export default function HealthPage() {
           {state === 'done' && result && (
             <button
               onClick={downloadReport}
-              className="text-sm text-primary/70 hover:text-primary/60 border border-primary/50/40 hover:border-primary/40/60 rounded-lg px-4 py-2.5 transition-colors"
+              className="text-sm text-primary/70 hover:text-primary/60 border border-primary/40 hover:border-primary/60 rounded-lg px-4 py-2.5 transition-colors"
             >
               Export JSON
             </button>
@@ -118,7 +118,7 @@ export default function HealthPage() {
               {result.checks.map((check) => (
                 <div
                   key={check.name}
-                  className="flex items-center justify-between rounded-xl border border-border/80/40 bg-card/40 px-5 py-3.5"
+                  className="flex items-center justify-between rounded-xl border border-border/40 bg-card/40 px-5 py-3.5"
                 >
                   <div className="flex items-center gap-3">
                     <span
@@ -138,7 +138,7 @@ export default function HealthPage() {
 
         {/* Idle state — what gets checked */}
         {state === 'idle' && (
-          <div className="rounded-xl border border-border/80/40 bg-card/40 divide-y divide-border/30">
+          <div className="rounded-xl border border-border/40 bg-card/40 divide-y divide-border/30">
             <div className="px-5 py-3.5">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-0">Checks</p>
             </div>

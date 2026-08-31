@@ -57,7 +57,7 @@ export default function CommunityPage() {
     <div className="px-4 py-12 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Coming soon banner */}
-        <div className="rounded-xl border border-primary/50/40 bg-primary/40 px-5 py-4 flex items-center gap-3 mb-10">
+        <div className="rounded-xl border border-primary/40 bg-primary/40 px-5 py-4 flex items-center gap-3 mb-10">
           <span className="text-primary/70 text-xl">⊕</span>
           <div>
             <p className="font-semibold text-primary/50">Full launch Q1 2027</p>
@@ -84,7 +84,7 @@ export default function CommunityPage() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-start gap-4 rounded-xl border border-border/80/40 bg-card/40 hover:border-primary/50/50 p-5 transition-all"
+                className="group flex items-start gap-4 rounded-xl border border-border/40 bg-card/40 hover:border-primary/50 p-5 transition-all"
               >
                 <span className="shrink-0 text-2xl font-mono text-primary/70 mt-0.5">{link.icon}</span>
                 <div className="flex-1">
@@ -116,7 +116,7 @@ export default function CommunityPage() {
                 href={a.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between gap-4 rounded-xl border border-border/80/40 bg-card/40 hover:border-primary/50/50 px-5 py-4 transition-all"
+                className="group flex items-center justify-between gap-4 rounded-xl border border-border/40 bg-card/40 hover:border-primary/50 px-5 py-4 transition-all"
               >
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-muted-foreground/70 group-hover:text-foreground transition-colors truncate">
@@ -131,7 +131,7 @@ export default function CommunityPage() {
         </div>
 
         {/* Job board — coming soon */}
-        <div className="rounded-xl border border-border/80/40 bg-card/40 p-6 text-center">
+        <div className="rounded-xl border border-border/40 bg-card/40 p-6 text-center">
           <div className="text-3xl font-mono text-muted-foreground mb-3">▣</div>
           <h2 className="font-semibold text-foreground mb-2">Job Board — Coming Q1 2027</h2>
           <p className="text-sm text-muted-foreground max-w-md mx-auto">
