@@ -51,13 +51,25 @@ const BADGES = [
     name: 'Infrastructure Specialist',
     description: 'Deployed an AI-native service using a dcyfr.build template.',
     icon: '▣',
-    color: 'border-success/40 bg-success/10 text-success-foreground dark:text-success',
+    // Was `text-success-foreground dark:text-success`. Under the contract both
+    // status foregrounds are near-white in BOTH schemes, so the light half of
+    // that pair renders at 1.09:1 on its own tint. Plain `text-success` is the
+    // contract's ink for a tinted status surface (CHECK_STYLES in
+    // app/health/page.tsx already reads that way) and is scheme-aware on its
+    // own, so the dark: variant goes with it. Fill /10 → /5: see below.
+    color: 'border-success/40 bg-success/5 text-success',
   },
   {
     name: 'Core Contributor',
     description: 'Merged 3+ pull requests into a DCYFR open-source repository.',
     icon: '✦',
-    color: 'border-warning/40 bg-warning/10 text-warning-foreground dark:text-warning',
+    // Same collapse as the success chip above. The /5 fill is why these two
+    // differ from their violet/cyan/rose siblings: those pair a mid-tone 500
+    // wash with a darker 700 ink, while the semantic chips use one token for
+    // both, and the contract's light-mode status tokens ARE the dark end. At
+    // /10 the wash reads deeper than the siblings' and the ink lands at
+    // 4.40:1 (success 4.43:1); /5 evens the family and clears AA at text-xs.
+    color: 'border-warning/40 bg-warning/5 text-warning',
   },
   {
     name: 'Early Adopter',

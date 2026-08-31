@@ -74,13 +74,20 @@ export default function CliPage() {
                                 {f.alias}
                               </code>
                             )}
-                            {/* --warning is a mid-tone amber fill; as a text
-                                color on the light card it measured 1.69:1.
-                                --warning-foreground is the dark end of the same
-                                hue, so it carries light mode while the fill
-                                token carries dark. */}
+                            {/* Was `text-warning-foreground dark:text-warning`,
+                                a fix for the old identity's mid-tone amber
+                                --warning measuring 1.69:1 as text on a light
+                                card. The contract dissolves the premise: light
+                                --warning is now hsl(26 90% 37%), the dark end
+                                of the hue, and --warning-foreground is
+                                near-white in BOTH schemes. Keeping the old pair
+                                would have inverted the fix into a 1.09:1 chip.
+                                Fill drops to /5 because a wash of a dark-end
+                                token sits deeper than the raw-palette /10
+                                washes beside it: 4.40:1 at /10, 4.71:1 at /5,
+                                and this is text-xs so AA wants 4.5. */}
                             {f.required && (
-                              <span className="text-xs text-warning-foreground dark:text-warning bg-warning/10 border border-warning/40 rounded px-1.5 py-0.5">
+                              <span className="text-xs text-warning bg-warning/5 border border-warning/40 rounded px-1.5 py-0.5">
                                 required
                               </span>
                             )}
