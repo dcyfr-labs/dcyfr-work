@@ -51,9 +51,12 @@ const BADGES = [
     name: 'Infrastructure Specialist',
     description: 'Deployed an AI-native service using a dcyfr.build template.',
     icon: '▣',
-    // Was `text-success-foreground dark:text-success`. Under the contract both
-    // status foregrounds are near-white in BOTH schemes, so the light half of
-    // that pair renders at 1.09:1 on its own tint. Plain `text-success` is the
+    // Was `text-success-foreground dark:text-success`. Under the contract a
+    // status foreground is ink for the SOLID fill — near-white in light,
+    // near-black in dark, i.e. always the inverse of its own hue. On a /10 wash
+    // of that same hue it therefore collapses in either scheme: 1.09:1 light,
+    // 1.10:1 dark. Only the light half was still reaching it here, so that is
+    // what broke, but the pair was never sound. Plain `text-success` is the
     // contract's ink for a tinted status surface (CHECK_STYLES in
     // app/health/page.tsx already reads that way) and is scheme-aware on its
     // own, so the dark: variant goes with it. Fill /10 → /5: see below.

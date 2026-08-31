@@ -79,9 +79,12 @@ export default function CliPage() {
                                 --warning measuring 1.69:1 as text on a light
                                 card. The contract dissolves the premise: light
                                 --warning is now hsl(26 90% 37%), the dark end
-                                of the hue, and --warning-foreground is
-                                near-white in BOTH schemes. Keeping the old pair
-                                would have inverted the fix into a 1.09:1 chip.
+                                of the hue, and --warning-foreground is ink for
+                                the SOLID fill — near-white in light, near-black
+                                in dark, always the inverse of its own hue, so
+                                on a /10 wash of that hue it collapses in either
+                                scheme. Keeping the old pair would have inverted
+                                the fix into a 1.09:1 chip.
                                 Fill drops to /5 because a wash of a dark-end
                                 token sits deeper than the raw-palette /10
                                 washes beside it: 4.40:1 at /10, 4.71:1 at /5,
