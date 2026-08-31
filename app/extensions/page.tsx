@@ -41,7 +41,7 @@ export default function ExtensionsPage() {
             placeholder="Search extensions…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-card/60 border border-border/80/40 rounded-lg px-4 py-2.5 text-sm text-muted-foreground/70 placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/40/60"
+            className="flex-1 bg-card/60 border border-border/40 rounded-lg px-4 py-2.5 text-sm text-muted-foreground/70 placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/60"
             aria-label="Search extensions"
           />
           <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
@@ -52,7 +52,7 @@ export default function ExtensionsPage() {
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   category === cat
                     ? 'bg-primary/60 text-foreground'
-                    : 'bg-muted/60 border border-border/80/40 text-muted-foreground hover:text-muted-foreground/70 hover:border-border/60/60'
+                    : 'bg-muted/60 border border-border/40 text-muted-foreground hover:text-muted-foreground/70 hover:border-border/60'
                 }`}
               >
                 {cat}
@@ -76,7 +76,7 @@ export default function ExtensionsPage() {
             {filtered.map((ext) => (
               <article
                 key={ext.id}
-                className="group rounded-xl border border-border/80/40 bg-card/40 hover:border-primary/50/50 transition-all overflow-hidden flex flex-col"
+                className="group rounded-xl border border-border/40 bg-card/40 hover:border-primary/50 transition-all overflow-hidden flex flex-col"
               >
                 <div className="p-5 flex-1">
                   <div className="flex items-start justify-between mb-2">
@@ -84,7 +84,7 @@ export default function ExtensionsPage() {
                       {ext.name}
                     </h2>
                     {ext.featured && (
-                      <span className="shrink-0 ml-2 text-xs text-primary/60 bg-primary/60 border border-primary/50/40 rounded-full px-2 py-0.5">
+                      <span className="shrink-0 ml-2 text-xs text-primary bg-primary/10 border border-primary/40 rounded-full px-2 py-0.5">
                         Featured
                       </span>
                     )}
@@ -94,7 +94,7 @@ export default function ExtensionsPage() {
                     {ext.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className="text-xs text-muted-foreground bg-muted/60 border border-border/80/30 rounded-full px-2 py-0.5"
+                        className="text-xs text-muted-foreground bg-muted/60 border border-border/30 rounded-full px-2 py-0.5"
                       >
                         {tag}
                       </span>
@@ -108,7 +108,7 @@ export default function ExtensionsPage() {
                     </div>
                   </div>
                 </div>
-                <div className="border-t border-border/80/30 px-5 py-3 flex items-center justify-between">
+                <div className="border-t border-border/30 px-5 py-3 flex items-center justify-between">
                   <span className="text-xs text-muted-foreground">
                     {ext.installCount.toLocaleString()} installs
                   </span>
