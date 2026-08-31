@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 // Brand-aligned textarea with built-in validation states.
 // Mirrors dcyfr-input API. Tokens come from the consumer app; never hardcode.
 const dcyfrTextareaVariants = cva(
-  "flex min-h-[120px] w-full rounded-md border bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm transition-[color,background,border,box-shadow] duration-200",
+  "flex min-h-[120px] w-full rounded-md border bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm transition-[color,background,border,box-shadow] duration-200",
   {
     variants: {
       variant: {

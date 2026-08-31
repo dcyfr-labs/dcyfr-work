@@ -41,7 +41,7 @@ export default function ExtensionsPage() {
             placeholder="Search extensions…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-card/60 border border-border/40 rounded-lg px-4 py-2.5 text-sm text-muted-foreground/70 placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/60"
+            className="flex-1 bg-card/60 border border-border/40 rounded-lg px-4 py-2.5 text-sm text-muted-foreground/70 placeholder:text-muted-foreground/60 focus:outline-hidden focus:border-primary/60"
             aria-label="Search extensions"
           />
           <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
