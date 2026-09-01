@@ -87,18 +87,18 @@ export default function ProfilesPage() {
     <div className="px-4 py-12 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Coming soon banner */}
-        <div className="rounded-xl border border-primary/40 bg-primary/40 px-5 py-4 flex items-center gap-3 mb-10">
-          <span className="text-primary/70 text-xl">◎</span>
+        <div className="rounded-xl border border-border/40 bg-card/40 px-5 py-4 flex items-center gap-3 mb-10">
+          <span className="text-primary text-xl">◎</span>
           <div>
-            <p className="font-semibold text-primary/50">Launching Q1 2027</p>
-            <p className="text-sm text-primary/70">Developer profiles are in development. Full GitHub OAuth + badge system coming in Phase 4.</p>
+            <p className="font-semibold text-foreground">Launching Q1 2027</p>
+            <p className="text-sm text-muted-foreground">Developer profiles are in development. Full GitHub OAuth + badge system coming in Phase 4.</p>
           </div>
         </div>
 
         {/* Header */}
         <div className="mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Developer Profiles</h1>
-          <p className="text-lg text-muted-foreground/80">
+          <p className="text-lg text-muted-foreground">
             Your DCYFR identity layer. Sign in with GitHub to create a profile, showcase projects
             built with DCYFR tools, earn practitioner badges, and connect with employers hiring
             for AI-native engineering roles.
@@ -133,8 +133,8 @@ export default function ProfilesPage() {
               key={f.title}
               className="rounded-xl border border-border/40 bg-card/40 p-5"
             >
-              <div className="text-2xl text-primary/70 font-mono mb-3">{f.icon}</div>
-              <h2 className="font-semibold text-muted-foreground/60 mb-2">{f.title}</h2>
+              <div className="text-2xl text-primary font-mono mb-3">{f.icon}</div>
+              <h2 className="font-semibold text-muted-foreground mb-2">{f.title}</h2>
               <p className="text-sm text-muted-foreground leading-relaxed">{f.description}</p>
             </div>
           ))}

@@ -20,7 +20,7 @@ const SECTIONS = [
     title: 'CLI Reference',
     description:
       'Complete reference for @dcyfr/ai-cli commands — agent run, delegate, workspace health, OpenSpec, and more.',
-    color: 'border-primary/40 bg-primary/40 hover:border-primary/60',
+    color: 'border-border/40 bg-card/40 hover:border-primary/50',
     badge: `${(cliData as CliCommand[]).length} commands`,
   },
   {
@@ -29,7 +29,7 @@ const SECTIONS = [
     title: 'VS Code Extensions',
     description:
       'Official DCYFR extensions for Claude Code integration, workspace status, snippet runner, and TLP classification labels.',
-    color: 'border-primary/40 bg-primary/40 hover:border-primary/60',
+    color: 'border-border/40 bg-card/40 hover:border-primary/50',
     badge: `${(extensionsData as VsCodeExtension[]).length} extensions`,
   },
   {
@@ -38,7 +38,7 @@ const SECTIONS = [
     title: 'Developer Profiles',
     description:
       'Sign in with GitHub to create your DCYFR developer profile. Showcase projects, earn badges, and appear on the contributor leaderboard.',
-    color: 'border-primary/40 bg-primary/40 hover:border-primary/60',
+    color: 'border-border/40 bg-card/40 hover:border-primary/50',
     badge: 'Coming Q1 2027',
   },
   {
@@ -47,7 +47,7 @@ const SECTIONS = [
     title: 'Community',
     description:
       'Connect with other DCYFR developers. Job board, contributor leaderboard, article highlights, and community links.',
-    color: 'border-primary/40 bg-primary/40 hover:border-primary/60',
+    color: 'border-border/40 bg-card/40 hover:border-primary/50',
     badge: 'Coming Q1 2027',
   },
   {
@@ -56,7 +56,7 @@ const SECTIONS = [
     title: 'Workspace Health',
     description:
       'One-click reachability check across all 6 DCYFR TLDs. Export diagnostic report as JSON for CI checks or incident response.',
-    color: 'border-primary/40 bg-primary/40 hover:border-primary/60',
+    color: 'border-border/40 bg-card/40 hover:border-primary/50',
     badge: '6 checks',
   },
 ];
@@ -114,9 +114,9 @@ export default function HomePage() {
           </DcyfrBadge>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
             Developer Tools for the<br />
-            <span className="text-primary/70">DCYFR Ecosystem</span>
+            <span className="text-primary">DCYFR Ecosystem</span>
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground/80 max-w-2xl mx-auto mb-10">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
             CLI reference, VS Code extensions, developer identity, and workspace health
             tooling — everything you need to build with DCYFR.
           </p>
@@ -142,9 +142,9 @@ export default function HomePage() {
               href={s.href}
               className={`group rounded-xl border p-5 transition-all ${s.color}`}
             >
-              <div className="text-2xl mb-3 text-primary/70 font-mono">{s.icon}</div>
+              <div className="text-2xl mb-3 text-primary font-mono">{s.icon}</div>
               <div className="flex items-center justify-between mb-2">
-                <h3 className="font-semibold text-muted-foreground/60 group-hover:text-foreground transition-colors">
+                <h3 className="font-semibold text-foreground transition-colors">
                   {s.title}
                 </h3>
                 <DcyfrBadge
@@ -166,7 +166,7 @@ export default function HomePage() {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-foreground">Featured Extensions</h2>
           <DcyfrButton asChild variant="ghostly" size="sm">
-            <Link href="/extensions" className="text-primary/70">
+            <Link href="/extensions" className="text-primary">
               View all →
             </Link>
           </DcyfrButton>
@@ -181,7 +181,7 @@ export default function HomePage() {
               className="group rounded-xl border border-border/40 bg-card/40 hover:border-primary/50 p-5 transition-all"
             >
               <div className="flex items-start justify-between mb-3">
-                <h3 className="font-semibold text-muted-foreground/60 group-hover:text-foreground transition-colors leading-tight">
+                <h3 className="font-semibold text-muted-foreground group-hover:text-foreground transition-colors leading-tight">
                   {ext.name}
                 </h3>
                 <span className="shrink-0 ml-2 text-xs text-muted-foreground font-mono">v{ext.version}</span>
@@ -201,7 +201,7 @@ export default function HomePage() {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-foreground">Common CLI Commands</h2>
           <DcyfrButton asChild variant="ghostly" size="sm">
-            <Link href="/cli" className="text-primary/70">
+            <Link href="/cli" className="text-primary">
               View all →
             </Link>
           </DcyfrButton>
@@ -216,7 +216,7 @@ export default function HomePage() {
               <code className="shrink-0 font-mono text-primary text-sm bg-primary/10 border border-primary/40 rounded px-2.5 py-1 group-hover:border-primary/60 transition-colors">
                 {cmd.command}
               </code>
-              <p className="text-sm text-muted-foreground leading-relaxed group-hover:text-muted-foreground/80 transition-colors">
+              <p className="text-sm text-muted-foreground leading-relaxed group-hover:text-muted-foreground transition-colors">
                 {cmd.description}
               </p>
             </Link>
@@ -225,10 +225,10 @@ export default function HomePage() {
       </section>
 
       {/* CTA — profiles preview */}
-      <section className="border-t border-primary/40 bg-primary/20">
+      <section className="border-t border-border/40 bg-muted/40">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <h2 className="text-2xl font-bold text-foreground mb-4">Developer Profiles — Coming Q1 2027</h2>
-          <p className="text-muted-foreground/80 mb-8">
+          <p className="text-muted-foreground mb-8">
             Sign in with GitHub, showcase your DCYFR projects, earn practitioner badges,
             and connect with employers hiring for AI-native engineering roles.
           </p>

@@ -28,7 +28,7 @@ export default function ExtensionsPage() {
         {/* Header */}
         <div className="mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">VS Code Extensions</h1>
-          <p className="text-lg text-muted-foreground/80">
+          <p className="text-lg text-muted-foreground">
             Official DCYFR extensions for VS Code — Claude Code integration, workspace tooling,
             and developer ergonomics.
           </p>
@@ -41,7 +41,7 @@ export default function ExtensionsPage() {
             placeholder="Search extensions…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-card/60 border border-border/40 rounded-lg px-4 py-2.5 text-sm text-muted-foreground/70 placeholder:text-muted-foreground/60 focus:outline-hidden focus:border-primary/60"
+            className="flex-1 bg-card/60 border border-border/40 rounded-lg px-4 py-2.5 text-sm text-muted-foreground placeholder:text-muted-foreground focus:outline-hidden focus:border-primary/60"
             aria-label="Search extensions"
           />
           <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
@@ -51,8 +51,8 @@ export default function ExtensionsPage() {
                 onClick={() => setCategory(cat)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   category === cat
-                    ? 'bg-primary/60 text-foreground'
-                    : 'bg-muted/60 border border-border/40 text-muted-foreground hover:text-muted-foreground/70 hover:border-border/60'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted/60 border border-border/40 text-muted-foreground hover:text-muted-foreground hover:border-border/60'
                 }`}
               >
                 {cat}
@@ -80,7 +80,7 @@ export default function ExtensionsPage() {
               >
                 <div className="p-5 flex-1">
                   <div className="flex items-start justify-between mb-2">
-                    <h2 className="font-semibold text-muted-foreground/60 group-hover:text-foreground transition-colors leading-tight">
+                    <h2 className="font-semibold text-muted-foreground group-hover:text-foreground transition-colors leading-tight">
                       {ext.name}
                     </h2>
                     {ext.featured && (
@@ -116,7 +116,7 @@ export default function ExtensionsPage() {
                     href={ext.marketplaceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-medium text-primary/70 hover:text-primary/60 transition-colors"
+                    className="text-xs font-medium text-primary hover:text-primary transition-colors"
                   >
                     Install →
                   </a>
