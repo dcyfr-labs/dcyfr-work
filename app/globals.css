@@ -1,112 +1,222 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /*
- * Phase 1 semantic CSS variable set per
- * openspec/changes/dcyfr-skeleton-sites-scaffolding/spec.md §1.
- * .theme-dcyfr-work identity (professional / navy + gold / light-default)
- * staged but not yet applied to <html>.
+ * The theme engine and the slate theme package, installed from the
+ * @dcyfr-labs registry:
+ *
+ *   npx shadcn@latest add @dcyfr-labs/dcyfr-theme-slate
+ *
+ * (slate declares the engine as a registry dependency, so the one command
+ * writes both files.) They are registry-owned — re-run the add command to take
+ * an update rather than editing them here, or this site forks the theme
+ * silently, which is the exact failure the chrome-parity gate exists to catch
+ * for the chrome cohort.
+ *
+ * Imported from the stylesheet rather than layout.tsx so the whole cascade —
+ * Tailwind's layers, the engine's base rules, the theme's values, then this
+ * file's site-owned overrides — resolves in one place with a known order. The
+ * engine and theme both write into @layer base, and this file's own :root
+ * block is declared after them so a site override wins on source order.
  */
+@import "./dcyfr-theme-engine.css";
+@import "./dcyfr-theme-slate.css";
 
+@source "../app";
+@source "../components";
+
+/*
+ * next-themes drives the scheme with a class on <html>, not the OS media
+ * query, so the `dark:` variant has to be re-pointed at that class. v4's
+ * default is `prefers-color-scheme`, which would silently mis-target every
+ * `dark:` utility in the tree.
+ */
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Semantic-var bridge, migrated out of the deleted tailwind.config.ts.
+ *
+ * Contract v2 carries FULL color values (`hsl(210 40% 96.1%)`), not the bare
+ * `210 40% 96.1%` triplets this site's tokens used, so these map straight
+ * through as `var(--x)`. The old `hsl(var(--x))` wrapper is gone: it would
+ * double-wrap and resolve to nothing. That is the load-bearing half of this
+ * commit — every color on the site routes through these mappings, so the
+ * wrapper and the token values have to flip in the same diff or the site
+ * renders unstyled.
+ *
+ * Carrying full values also means a future theme may author in any color
+ * space (oklch, display-p3) without touching a single consumer.
+ */
+@theme inline {
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  /*
+   * --accent splits in two under the contract.
+   *
+   * `accent` is a SURFACE TINT in both schemes (light: near-white; dark: the
+   * same near-background navy as --secondary). That is what the eleven
+   * `hover:bg-accent` / `focus:bg-accent` / `*:text-accent-foreground` call
+   * sites in button, dropdown-menu, dialog, badge, nav and footer have always
+   * meant, so all eleven stay correct untouched.
+   *
+   * Brand meaning moves to the accent-400..700 ramp, and unlike dcyfr.bot this
+   * site has somewhere for it to go: the wordmark's hex glyph and `.work`
+   * suffix were `text-accent`, which under the identity block meant the gold
+   * 43 96% 56%. Left alone they would have turned into a near-white surface
+   * tint on a near-white ground — invisible. They move to `text-accent-600`,
+   * matching dcyfr.build.
+   */
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+  --color-accent-700: var(--accent-700);
+
+  /* DCYFR-specific semantic tokens */
+  --color-secure: var(--secure);
+  --color-secure-foreground: var(--secure-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+
+  /*
+   * The contract also supplies --radius-sm (0.25rem) and --radius-pill as raw
+   * variables. `inline` means these utilities carry the computed value rather
+   * than a var() reference, so the --radius-sm name appearing on both sides is
+   * benign — and the two agree numerically anyway, since calc(0.5rem - 4px)
+   * IS 0.25rem. No rounded-pill call sites, so that one is left unmapped.
+   *
+   * --radius-sm is load-bearing rather than decorative: the deleted v3 config
+   * overrode borderRadius.sm, so the five `rounded-sm` call sites in
+   * dropdown-menu and sheet resolve through this line rather than v4's stock
+   * scale. They do not MOVE — this site's identity --radius was already
+   * 0.5rem, which is also slate's, so the de-brand is radius-neutral here.
+   */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /*
+   * next/font loads Inter under --font-inter (see app/layout.tsx). Mapping it
+   * here keeps the `font-sans` utility meaning the site's body face. The
+   * engine binds <body> to --font-body independently, and the :root block
+   * below points that at the same face, so the utility and the element
+   * binding cannot drift apart.
+   *
+   * --font-mono is deliberately NOT mapped: the contract declares it as a raw
+   * variable in @layer base, which outranks v4's @layer theme default, so the
+   * fourteen `font-mono` call sites already resolve to the theme's stack and
+   * agree with the engine's code/kbd/samp/pre binding for free.
+   */
+  --font-sans: var(--font-inter);
+}
+
+/*
+ * v4 changed the default border color from gray-200 to `currentColor`, so
+ * every bare `border` utility in the tree would otherwise start painting the
+ * element's text color. Restoring the default globally is one rule instead of
+ * one edit per call site, it cannot miss a call site, and it is what shadcn's
+ * own v4 migration ships.
+ */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border, currentColor);
+  }
+}
+
+/*
+ * Site-owned layer. Everything a theme package can supply now comes from
+ * dcyfr-theme-slate.css, scoped to [data-identity="slate"] on <html> (stamped
+ * in app/layout.tsx). What is left here is the bridge from next/font to the
+ * engine's type hooks.
+ *
+ * This block is declared after the theme import on purpose. Both are
+ * single-specificity selectors on the same <html> element in @layer base, so
+ * source order decides — later wins, which is the direction a site override
+ * has to run.
+ */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-    --secure: 217 91% 60%;
-    --secure-foreground: 210 40% 98%;
-    --success: 142 71% 45%;
-    --success-foreground: 142 30% 5%;
-    --warning: 43 96% 56%;
-    --warning-foreground: 43 30% 10%;
-    --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --secure: 217 91% 65%;
-    --secure-foreground: 217 30% 10%;
-    --success: 142 71% 50%;
-    --success-foreground: 142 30% 5%;
-    --warning: 43 96% 60%;
-    --warning-foreground: 43 30% 10%;
+    /*
+     * The engine binds body/headings/code to --font-body/-display/-mono, and
+     * the theme defines each as var(--font-<role>-loaded, <system stack>). A
+     * site supplies real faces by filling the -loaded hook; leaving one unset
+     * is how it opts into the system fallback. Display and body are both Inter
+     * here, which is the face layout.tsx has always downloaded. Mono is
+     * deliberately left unset — this site loads no mono face, so it takes the
+     * theme's ui-monospace stack. The identity block used to spell a mono
+     * stack literally; the theme's differs only in preferring "SF Mono" over
+     * SFMono-Regular, which resolve to the same face on macOS.
+     */
+    --font-display-loaded: var(--font-inter);
+    --font-body-loaded: var(--font-inter);
   }
 
   /*
-   * Identity: professional / career portal — navy + gold, light-default.
-   * Source: docs/dcyfr-workspace/sites/dcyfr-work.md
+   * Identity hook for dcyfr.work, intentionally empty.
    *
-   * Structure: unconditional block holds brand-identity vars that apply in
-   * BOTH themes (radius, fonts, accent hue). Light-only surface tints
-   * (--muted*, --primary) stay here since `:root` is the light baseline.
-   * Dark scope below overrides surface tokens so cards/muted surfaces
-   * don't flash white in dark mode — previously clobbered `.dark`'s values.
+   * It used to carry the career-portal brand: a navy --primary (218 85% 18%)
+   * with the gold --accent (43 96% 56%) the wordmark was painted in, their
+   * dark-scheme counterparts, and a pair of cooler --muted surface tints.
+   * Emptying it is what de-brands the site onto canonical slate.
+   *
+   * Like dcyfr.bot and unlike the earlier sites in this migration, this block
+   * was NOT a silent clobber: brand tokens sat in `.theme-dcyfr-work` and
+   * surface tokens in a properly dark-scoped
+   * `.theme-dcyfr-work.dark, .dark .theme-dcyfr-work` pair, so the scheme
+   * values were never reached into. It is emptied because the fleet is pinning
+   * one theme, not because it was broken.
+   *
+   * --radius does not move: the block set 0.5rem and slate sets 0.5rem. That
+   * makes this the second radius-neutral site in the migration, not the only
+   * one — dcyfr.bot is the other.
+   *
+   * Not a one-way door. Re-branding means publishing a dcyfr-theme-dcyfr-work
+   * package and swapping the data-identity value, which is additive. The class
+   * stays on <html> so the dcyfr-site-scaffold identity-class check still has
+   * its subject.
    */
   .theme-dcyfr-work {
-    --primary: 218 85% 18%;
-    --primary-foreground: 210 40% 98%;
-    --accent: 43 96% 56%;
-    --accent-foreground: 218 85% 10%;
-    --radius: 0.5rem;
-    --muted: 210 16% 93%;
-    --muted-foreground: 215 19% 35%;
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  }
-
-  .theme-dcyfr-work.dark,
-  .dark .theme-dcyfr-work {
-    --primary: 218 75% 65%;
-    --primary-foreground: 218 50% 10%;
-    --muted: 218 25% 18%;
-    --muted-foreground: 218 15% 65%;
+    /* intentionally empty — see above */
   }
 }
 
-@layer base {
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-}
+/*
+ * The site's own reduced-motion block is gone: the engine ships one, and its
+ * `[data-identity] *` scope is a strict superset of what this site had. The
+ * difference between the two selectors is <html> itself, and nothing here
+ * animates, transitions, or smooth-scrolls on <html> — this site never set
+ * scroll-behavior anywhere. (dcyfr.bot did, which is why it keeps a guard the
+ * engine cannot reach; see finding 7 in the change's tasks.md.) The engine's
+ * version also collapses animation-timeline and scroll-behavior, which this
+ * site's did not.
+ *
+ * Ground colors are not set here either. PageShell paints
+ * `bg-background text-foreground` on a `min-h-screen` wrapper, which is where
+ * this site has always got them, and font-family is deliberately absent: the
+ * engine owns it on <body> via --font-body, and an unlayered declaration in
+ * this file would beat anything in @layer base regardless of source order,
+ * leaving the engine's type binding dead while looking correct in the source.
+ */
