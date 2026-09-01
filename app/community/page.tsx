@@ -57,18 +57,18 @@ export default function CommunityPage() {
     <div className="px-4 py-12 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Coming soon banner */}
-        <div className="rounded-xl border border-primary/40 bg-primary/40 px-5 py-4 flex items-center gap-3 mb-10">
-          <span className="text-primary/70 text-xl">⊕</span>
+        <div className="rounded-xl border border-border/40 bg-card/40 px-5 py-4 flex items-center gap-3 mb-10">
+          <span className="text-primary text-xl">⊕</span>
           <div>
-            <p className="font-semibold text-primary/50">Full launch Q1 2027</p>
-            <p className="text-sm text-primary/70">Job board and contributor leaderboard coming in Phase 4. Community channels are already live.</p>
+            <p className="font-semibold text-foreground">Full launch Q1 2027</p>
+            <p className="text-sm text-muted-foreground">Job board and contributor leaderboard coming in Phase 4. Community channels are already live.</p>
           </div>
         </div>
 
         {/* Header */}
         <div className="mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Community</h1>
-          <p className="text-lg text-muted-foreground/80">
+          <p className="text-lg text-muted-foreground">
             Connect with other developers building on the DCYFR ecosystem. Ask questions,
             share projects, and find collaborators.
           </p>
@@ -86,10 +86,10 @@ export default function CommunityPage() {
                 rel="noopener noreferrer"
                 className="group flex items-start gap-4 rounded-xl border border-border/40 bg-card/40 hover:border-primary/50 p-5 transition-all"
               >
-                <span className="shrink-0 text-2xl font-mono text-primary/70 mt-0.5">{link.icon}</span>
+                <span className="shrink-0 text-2xl font-mono text-primary mt-0.5">{link.icon}</span>
                 <div className="flex-1">
                   <div className="flex items-baseline justify-between gap-2 mb-1">
-                    <h3 className="font-semibold text-muted-foreground/60 group-hover:text-foreground transition-colors">
+                    <h3 className="font-semibold text-muted-foreground group-hover:text-foreground transition-colors">
                       {link.name}
                     </h3>
                     <span className="text-xs text-muted-foreground font-mono">{link.label}</span>
@@ -105,7 +105,7 @@ export default function CommunityPage() {
         <div className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-foreground">Article Highlights</h2>
-            <a href="https://dcyfr.tech/articles" className="text-sm text-primary/70 hover:text-primary/60 transition-colors">
+            <a href="https://dcyfr.tech/articles" className="text-sm text-primary hover:text-primary transition-colors">
               All articles →
             </a>
           </div>
@@ -119,12 +119,12 @@ export default function CommunityPage() {
                 className="group flex items-center justify-between gap-4 rounded-xl border border-border/40 bg-card/40 hover:border-primary/50 px-5 py-4 transition-all"
               >
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-muted-foreground/70 group-hover:text-foreground transition-colors truncate">
+                  <p className="font-medium text-muted-foreground group-hover:text-foreground transition-colors truncate">
                     {a.title}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">{a.category} · {a.readingTime} min read</p>
                 </div>
-                <span className="shrink-0 text-primary/70 text-sm">→</span>
+                <span className="shrink-0 text-primary text-sm">→</span>
               </a>
             ))}
           </div>
@@ -140,7 +140,7 @@ export default function CommunityPage() {
           </p>
           <Link
             href="/profiles"
-            className="inline-block mt-4 text-sm text-primary/70 hover:text-primary/60 transition-colors"
+            className="inline-block mt-4 text-sm text-primary hover:text-primary transition-colors"
           >
             Create your profile to get notified →
           </Link>

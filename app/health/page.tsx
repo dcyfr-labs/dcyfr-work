@@ -55,7 +55,7 @@ export default function HealthPage() {
         {/* Header */}
         <div className="mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Workspace Health Checker</h1>
-          <p className="text-lg text-muted-foreground/80">
+          <p className="text-lg text-muted-foreground">
             Verify reachability of all DCYFR TLD endpoints. Results export as JSON for
             debugging, incident reports, or CI checks.
           </p>
@@ -66,12 +66,12 @@ export default function HealthPage() {
           <button
             onClick={runCheck}
             disabled={state === 'running'}
-            className="flex items-center gap-2 bg-primary/60 hover:bg-primary/50 disabled:bg-primary/80 disabled:cursor-not-allowed text-foreground font-semibold px-6 py-3 rounded-lg transition-colors"
+            className="flex items-center gap-2 bg-primary hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed text-primary-foreground font-semibold px-6 py-3 rounded-lg transition-colors"
             aria-busy={state === 'running'}
           >
             {state === 'running' ? (
               <>
-                <span className="w-4 h-4 border-2 border-foreground/30 border-t-foreground rounded-full animate-spin" aria-hidden="true" />
+                <span className="w-4 h-4 border-2 border-current/30 border-t-current rounded-full animate-spin" aria-hidden="true" />
                 Running checks…
               </>
             ) : (
@@ -81,7 +81,7 @@ export default function HealthPage() {
           {state === 'done' && result && (
             <button
               onClick={downloadReport}
-              className="text-sm text-primary/70 hover:text-primary/60 border border-primary/40 hover:border-primary/60 rounded-lg px-4 py-2.5 transition-colors"
+              className="text-sm text-primary hover:text-primary border border-primary/40 hover:border-primary/60 rounded-lg px-4 py-2.5 transition-colors"
             >
               Export JSON
             </button>
@@ -127,7 +127,7 @@ export default function HealthPage() {
                     >
                       {CHECK_STYLES[check.status].label}
                     </span>
-                    <span className="text-sm text-muted-foreground/70">{check.name}</span>
+                    <span className="text-sm text-muted-foreground">{check.name}</span>
                   </div>
                   <span className="text-xs text-muted-foreground font-mono">{check.detail}</span>
                 </div>

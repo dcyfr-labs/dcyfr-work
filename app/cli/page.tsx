@@ -17,7 +17,7 @@ export default function CliPage() {
         {/* Header */}
         <div className="mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">CLI Reference</h1>
-          <p className="text-lg text-muted-foreground/80 mb-4">
+          <p className="text-lg text-muted-foreground mb-4">
             Complete command reference for{' '}
             <code className="text-primary bg-primary/10 border border-primary/40 rounded px-1.5 py-0.5 text-sm">
               @dcyfr/ai-cli
@@ -25,7 +25,7 @@ export default function CliPage() {
           </p>
           <div className="rounded-lg border border-border/40 bg-card/60 p-4">
             <p className="text-xs text-muted-foreground mb-2">Install</p>
-            <code className="text-sm text-primary/60 font-mono">npm install -g @dcyfr/ai-cli</code>
+            <code className="text-sm text-primary font-mono">npm install -g @dcyfr/ai-cli</code>
           </div>
         </div>
 
@@ -39,7 +39,7 @@ export default function CliPage() {
             >
               {/* Command header */}
               <div className="border-b border-border/40 px-5 py-4 flex flex-wrap items-center justify-between gap-3">
-                <code className="text-lg font-mono font-bold text-primary/60">{cmd.command}</code>
+                <code className="text-lg font-mono font-bold text-primary">{cmd.command}</code>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <span className="border border-border/40 rounded px-2 py-0.5">{cmd.package}</span>
                   <span className="border border-border/40 rounded px-2 py-0.5">since {cmd.since}</span>
@@ -48,7 +48,7 @@ export default function CliPage() {
 
               <div className="px-5 py-4 space-y-4">
                 {/* Description */}
-                <p className="text-muted-foreground/80">{cmd.description}</p>
+                <p className="text-muted-foreground">{cmd.description}</p>
 
                 {/* Usage */}
                 <div>
@@ -109,7 +109,7 @@ export default function CliPage() {
                     {cmd.examples.map((ex, i) => (
                       <pre
                         key={i}
-                        className="text-sm text-muted-foreground/70 bg-muted/60 border border-border/40 rounded-lg px-4 py-2.5 overflow-x-auto"
+                        className="text-sm text-muted-foreground bg-muted/60 border border-border/40 rounded-lg px-4 py-2.5 overflow-x-auto"
                       >
                         <code>{ex}</code>
                       </pre>
