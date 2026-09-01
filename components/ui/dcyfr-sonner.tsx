@@ -36,9 +36,9 @@ function DcyfrToaster({ ...props }: ToasterProps) {
       }}
       style={
         {
-          "--normal-bg": "hsl(var(--popover))",
-          "--normal-text": "hsl(var(--popover-foreground))",
-          "--normal-border": "hsl(var(--border))",
+          "--normal-bg": "var(--popover)",
+          "--normal-text": "var(--popover-foreground)",
+          "--normal-border": "var(--border)",
         } as React.CSSProperties
       }
       {...props}
