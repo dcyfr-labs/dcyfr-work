@@ -126,18 +126,20 @@
   --radius-sm: calc(var(--radius) - 4px);
 
   /*
-   * next/font loads Inter under --font-inter (see app/layout.tsx). Mapping it
-   * here keeps the `font-sans` utility meaning the site's body face. The
-   * engine binds <body> to --font-body independently, and the :root block
-   * below points that at the same face, so the utility and the element
+   * next/font binds Geist Sans to --font-geist-sans (see app/layout.tsx).
+   * Mapping it here keeps the `font-sans` utility meaning the site's body
+   * face. The engine binds <body> to --font-body independently, and the :root
+   * block below points that at the same face, so the utility and the element
    * binding cannot drift apart.
    *
    * --font-mono is deliberately NOT mapped: the contract declares it as a raw
    * variable in @layer base, which outranks v4's @layer theme default, so the
    * fourteen `font-mono` call sites already resolve to the theme's stack and
-   * agree with the engine's code/kbd/samp/pre binding for free.
+   * agree with the engine's code/kbd/samp/pre binding for free. Filling
+   * --font-mono-loaded below is what puts Geist Mono in front of that stack,
+   * and it reaches all fourteen without a theme key.
    */
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-geist-sans);
 }
 
 /*
@@ -174,15 +176,23 @@
      * The engine binds body/headings/code to --font-body/-display/-mono, and
      * the theme defines each as var(--font-<role>-loaded, <system stack>). A
      * site supplies real faces by filling the -loaded hook; leaving one unset
-     * is how it opts into the system fallback. Display and body are both Inter
-     * here, which is the face layout.tsx has always downloaded. Mono is
-     * deliberately left unset — this site loads no mono face, so it takes the
-     * theme's ui-monospace stack. The identity block used to spell a mono
-     * stack literally; the theme's differs only in preferring "SF Mono" over
-     * SFMono-Regular, which resolve to the same face on macOS.
+     * is how it opts into the system fallback.
+     *
+     * All three hooks are filled now. Display and body take Geist Sans, which
+     * replaces the Inter this site loaded before. Mono takes Geist Mono, and
+     * that is a real change rather than bookkeeping: the hook was unset, so
+     * the fourteen `font-mono` call sites and the engine's code/kbd/samp/pre
+     * binding were all falling through to the theme's ui-monospace stack.
+     * They get a downloaded face here for the first time.
+     *
+     * The geist package self-hosts through next/font/local, so both faces are
+     * served from this origin (Geist-Variable.woff2 and
+     * GeistMono-Variable.woff2, roughly 70 KB each) and the build fetches
+     * nothing from Google.
      */
-    --font-display-loaded: var(--font-inter);
-    --font-body-loaded: var(--font-inter);
+    --font-display-loaded: var(--font-geist-sans);
+    --font-body-loaded: var(--font-geist-sans);
+    --font-mono-loaded: var(--font-geist-mono);
   }
 
   /*

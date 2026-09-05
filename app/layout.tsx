@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ThemeProvider } from '@/components/chrome/theme-provider';
@@ -9,27 +10,24 @@ import type { ChromeNavSection } from '@/components/chrome/nav-utils';
 import { DcyfrToaster } from '@/components/ui/dcyfr-sonner';
 import './globals.css';
 
-// Named for the face, not the role. The theme engine binds <body> and headings
-// to --font-body / --font-display, and the theme resolves each through a
-// --font-<role>-loaded hook; globals.css points those hooks and the `font-sans`
-// utility at this one variable. Naming it for the face means three roles can
-// share it without any Tailwind theme key pointing at another, and swapping
-// Inter out later is a one-line change here.
+// The two font bindings live in this file rather than a helper because the
+// fleet's font audit reads app/layout.tsx and nothing else.
 //
-// The role name was also unavailable: v4 emits its theme keys as real custom
-// properties, so a next/font variable called `--font-sans` collides with the
-// theme's own --font-sans, and `--font-sans: var(--font-sans)` self-references.
+// geist exposes GeistSans.variable as --font-geist-sans and GeistMono.variable
+// as --font-geist-mono. Both are named for the face rather than the role, which
+// is what lets globals.css point three engine hooks and the `font-sans` theme
+// key at them without any key referring to another. The role names were also
+// unavailable: v4 emits its theme keys as real custom properties, so a
+// next/font variable called --font-sans would collide with the theme's own and
+// `--font-sans: var(--font-sans)` would self-reference.
 //
-// `display: 'swap'` was missing. Without it the browser blocks on the webfont
-// for up to three seconds and renders nothing; with it the fallback paints
-// immediately and Inter swaps in. That was survivable while the face reached no
-// element, which was the state of this site until the v4 commit before this
-// one. It is not survivable now.
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
+// The package wraps next/font/local over two woff2 files it ships
+// (Geist-Variable.woff2 at 69,652 bytes and GeistMono-Variable.woff2 at
+// 71,368 bytes), so the faces are served from this origin and the build
+// fetches nothing from Google. Its loader passes src, variable and weight and
+// nothing else, so font-display comes from next/font/local's own default
+// rather than from a setting this file could get wrong, which is what the
+// Inter loader had to ask for by hand.
 
 export const metadata: Metadata = {
   title: {
@@ -146,7 +144,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       data-identity="slate"
-      className={`theme-dcyfr-work ${inter.variable}`}
+      className={`theme-dcyfr-work ${GeistSans.variable} ${GeistMono.variable}`}
     >
       {/* Ground colors ride here now: globals.css sets none, and the PageShell
           wrapper that used to paint them is gone. `font-sans` stays off <body>
