@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { ThemeProvider } from '@/components/theme-provider';
-import { PageShell, SiteNav, SiteFooter } from '@/components/chrome';
+import { ThemeProvider } from '@/components/chrome/theme-provider';
+import { SiteHeader, type HeaderNavItem } from '@/components/chrome/site-header';
+import { SiteFooter, type FooterLink } from '@/components/chrome/site-footer';
+import type { ChromeNavSection } from '@/components/chrome/nav-utils';
 import { DcyfrToaster } from '@/components/ui/dcyfr-sonner';
 import './globals.css';
 
@@ -58,7 +60,14 @@ const DcyfrWorkLogo = (
   </span>
 );
 
-const NAV_LINKS = [
+// The v1 nav list unchanged: five internal routes, no hash links, no external
+// links, and no `/` entry to drop (home is reached through the logo, which
+// SiteHeader wraps in its own link).
+//
+// No item carries `icon`. This file is a Server Component and SiteHeader is
+// 'use client', so ChromeNavItem.icon — an ElementType — cannot cross the
+// boundary.
+const NAV: HeaderNavItem[] = [
   { href: '/cli', label: 'CLI Ref' },
   { href: '/extensions', label: 'Extensions' },
   { href: '/profiles', label: 'Profiles' },
@@ -66,69 +75,119 @@ const NAV_LINKS = [
   { href: '/health', label: 'Health' },
 ];
 
-const FOOTER_COLUMNS = [
+// The drawer is the only place every link is reachable below `md`: the header
+// link row and the footer link row are both `hidden md:flex`. Products and
+// Ecosystem are the v1 footer's two columns; Legal is its legal row.
+//
+// `/health` is in Products here but was never in the v1 footer. It is a header
+// nav link, and the header link row disappears below `md`, so the drawer is
+// the only surface that can carry it.
+const SECTIONS: ChromeNavSection[] = [
   {
-    title: 'Products',
-    links: [
+    id: 'products',
+    label: 'Products',
+    items: [
       { href: '/cli', label: 'CLI Reference' },
       { href: '/extensions', label: 'Extensions' },
       { href: '/profiles', label: 'Profiles' },
       { href: '/community', label: 'Community' },
+      { href: '/health', label: 'Health' },
     ],
   },
   {
-    title: 'Ecosystem',
-    links: [
-      { href: 'https://dcyfr.io', label: 'dcyfr.io', external: true },
-      { href: 'https://dcyfr.bot', label: 'dcyfr.bot', external: true },
+    id: 'ecosystem',
+    label: 'Ecosystem',
+    items: [
+      { href: 'https://dcyfr.io', label: 'dcyfr.io' },
+      { href: 'https://dcyfr.bot', label: 'dcyfr.bot' },
+    ],
+  },
+  {
+    id: 'legal',
+    label: 'Legal',
+    items: [
+      { href: '/privacy', label: 'Privacy' },
+      { href: 'https://dcyfr.ai/terms', label: 'Terms' },
+      { href: 'https://dcyfr.ai/security', label: 'Security' },
     ],
   },
 ];
 
-const LEGAL_LINKS = [
+// Flat: the v2 footer is one row beside the copyright, so the v1 footer's two
+// link columns and its legal row collapse into a single list of nine. The two
+// off-site entries keep their labels and lose `external`, which v2 has no
+// concept of; every link now opens in the same tab.
+const FOOTER: FooterLink[] = [
+  { href: '/cli', label: 'CLI Reference' },
+  { href: '/extensions', label: 'Extensions' },
+  { href: '/profiles', label: 'Profiles' },
+  { href: '/community', label: 'Community' },
+  { href: 'https://dcyfr.io', label: 'dcyfr.io' },
+  { href: 'https://dcyfr.bot', label: 'dcyfr.bot' },
   { href: '/privacy', label: 'Privacy' },
-  { href: 'https://dcyfr.ai/terms', label: 'Terms', external: true },
-  { href: 'https://dcyfr.ai/security', label: 'Security', external: true },
+  { href: 'https://dcyfr.ai/terms', label: 'Terms' },
+  { href: 'https://dcyfr.ai/security', label: 'Security' },
 ];
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    // data-identity selects the theme package; the .theme-dcyfr-work class is
-    // the (now empty) site hook, kept so the scaffold contract's identity-class
-    // check still has a subject and so re-branding is a one-attribute change.
-    // `font-sans` comes off <body>: the engine binds body's family through
-    // --font-body, and a utility on the same element would win and pin the face
-    // to whatever the Tailwind key happens to say, breaking the theme's ability
-    // to supply one.
+    // data-identity selects the theme package; the .dark class (added by
+    // ThemeProvider) selects the scheme. The engine's dark rules are scoped to
+    // the compound [data-identity="slate"].dark, so both have to land on the
+    // SAME element — moving the stamp to <body> would keep light rendering
+    // correct and silently drop the whole dark scheme.
+    //
+    // .theme-dcyfr-work is the (now empty) site hook, kept so the scaffold
+    // contract's identity-class check still has a subject and so re-branding is
+    // a one-attribute change.
     <html
       lang="en"
       suppressHydrationWarning
       data-identity="slate"
-      className={`${inter.variable} theme-dcyfr-work`}
+      className={`theme-dcyfr-work ${inter.variable}`}
     >
-      <body className="min-h-screen">
+      {/* Ground colors ride here now: globals.css sets none, and the PageShell
+          wrapper that used to paint them is gone. `font-sans` stays off <body>
+          on purpose — the engine binds body's family through --font-body, and a
+          utility on the same element would win and pin the face. */}
+      <body className="flex min-h-dvh flex-col bg-background text-foreground">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <PageShell
-            nav={<SiteNav logo={DcyfrWorkLogo} links={NAV_LINKS} />}
-            footer={
-              <SiteFooter
-                brand={{
-                  name: 'dcyfr.work',
-                  tagline: 'Developer Tools & Identity Layer',
-                }}
-                columns={FOOTER_COLUMNS}
-                legal={LEGAL_LINKS}
-                copyright="© 2027 DCYFR Labs. All rights reserved. — launching Q1 2027"
-              />
-            }
-            padding="none"
-            maxWidth="full"
+          {/* focus:z-50 clears the fixed header, which is z-40. */}
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:shadow-lg"
           >
+            Skip to content
+          </a>
+          <SiteHeader
+            logo={DcyfrWorkLogo}
+            logoAriaLabel="dcyfr.work home"
+            links={NAV}
+            mobileNavSections={SECTIONS}
+          />
+          {/* pt-18 clears the fixed h-18 header. */}
+          <main id="main-content" className="flex-1 pt-18">
             {children}
-          </PageShell>
+          </main>
+          {/* v2's SiteFooter computes `© {year} {brand}` and takes no copyright
+              prop, so the v1 string "© 2027 DCYFR Labs. All rights reserved. —
+              launching Q1 2027" cannot survive intact. The year becomes
+              computed, and the launch quarter is DROPPED rather than relocated:
+              it already appears in page copy at app/page.tsx (the hero badge
+              and two card badges), app/profiles/page.tsx and
+              app/community/page.tsx, so no information leaves the site. */}
+          <SiteFooter brand="DCYFR" links={FOOTER} />
+          {/* Stays inside the provider. DcyfrToaster reads next-themes'
+              resolved theme to pick its palette; hoisting it out beside
+              <Analytics /> would strand it on the "system" default and paint
+              dark toasts on this site's light default. */}
           <DcyfrToaster />
+          {/* BottomNav ships in the v2 block and is deliberately NOT rendered.
+              dcyfr-satellite-chrome-v2 Decision 6 defers it to the satellites
+              that have five primary destinations worth a fixed mobile bar; this
+              site's drawer already reaches every route. */}
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

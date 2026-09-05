@@ -21,6 +21,17 @@
 @import "./dcyfr-theme-engine.css";
 @import "./dcyfr-theme-slate.css";
 
+/*
+ * Registry chrome v2 ships three class names its components spell in
+ * `className` strings: `touch-target`, `transition-base` and
+ * `transition-fast`. Tailwind never emits them, so without this import the
+ * header's 44px hit areas and the drawer's transitions are simply absent —
+ * a silent failure, since the markup still renders and every utility beside
+ * them still applies. The file reads `--motion-snap`, which the slate
+ * package supplies, so it has to be imported after the theme.
+ */
+@import "./dcyfr-chrome.css";
+
 @source "../app";
 @source "../components";
 
@@ -213,9 +224,9 @@
  * version also collapses animation-timeline and scroll-behavior, which this
  * site's did not.
  *
- * Ground colors are not set here either. PageShell paints
- * `bg-background text-foreground` on a `min-h-screen` wrapper, which is where
- * this site has always got them, and font-family is deliberately absent: the
+ * Ground colors are not set here either. They ride on <body> as
+ * `bg-background text-foreground`, which is where PageShell used to put them
+ * before chrome v2 removed it, and font-family is deliberately absent: the
  * engine owns it on <body> via --font-body, and an unlayered declaration in
  * this file would beat anything in @layer base regardless of source order,
  * leaving the engine's type binding dead while looking correct in the source.
