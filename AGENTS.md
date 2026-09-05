@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-`dcyfr-work-portal` is a Next.js 15 / React 19 portal for work-focused DCYFR experiences.
+`dcyfr-work-portal` is a Next.js 16 / React 19 portal for work-focused DCYFR experiences.
 
 ## Architecture
 
