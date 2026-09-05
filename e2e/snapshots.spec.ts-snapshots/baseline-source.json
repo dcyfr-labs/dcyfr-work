@@ -1,0 +1,21 @@
+{
+  "repository": "dcyfr-labs/dcyfr-work",
+  "head_sha": "55b5032ae8aaf64958f47c44b40494903b61a3be",
+  "ref": "refs/heads/claude/chrome-v2-baselines",
+  "base_url": "https://dcyfr-work-o7my75bjl-dcyfr-labs.vercel.app",
+  "deployment": {
+    "id": 6277451253,
+    "sha": "55b5032ae8aaf64958f47c44b40494903b61a3be",
+    "environment": "Production",
+    "created_at": "2026-09-05T05:16:43Z"
+  },
+  "runner_os": "Linux",
+  "runner_arch": "X64",
+  "run_url": "https://github.com/dcyfr-labs/dcyfr-work/actions/runs/33948313755",
+  "snapshots": [
+    "cli-reference-desktop.png",
+    "cli-reference-mobile.png",
+    "home-desktop.png",
+    "home-mobile.png"
+  ]
+}
