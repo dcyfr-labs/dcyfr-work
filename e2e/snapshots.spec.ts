@@ -26,6 +26,12 @@ for (const route of ROUTES) {
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto(route.path, { waitUntil: 'domcontentloaded' });
       await page.waitForTimeout(1500);
+      // Geist is self-hosted and loads with font-display: swap, so the first
+      // paint uses the fallback stack and the real metrics arrive whenever the
+      // woff2 lands. A fixed wait cannot gate that. document.fonts.ready gates
+      // on the faces themselves; the 1500 ms above stays as a floor for
+      // everything else the page settles.
+      await page.evaluate(() => document.fonts.ready);
       await expect(page).toHaveScreenshot(`${route.name}-${vp.name}.png`, {
         fullPage: true,
         maxDiffPixelRatio: 0.05,
