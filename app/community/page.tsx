@@ -26,21 +26,21 @@ const COMMUNITY_LINKS = [
 
 const CURATED_ARTICLES = [
   {
-    title: 'Delegation Framework v2: Trustworthy Agent Composition',
-    href: 'https://dcyfr.tech/articles/delegation-framework-v2',
+    title: 'The DCYFR Delegation Framework: Typed Agent Contracts at Scale',
+    href: 'https://dcyfr.tech/articles/delegation-framework-deep-dive',
     category: 'Agent Patterns',
     readingTime: 8,
   },
   {
-    title: 'Context Engineering: Managing Attention Budgets in Long-Running Agents',
-    href: 'https://dcyfr.tech/articles/context-engineering-attention-budgets',
+    title: 'Context Window Budget Management for Long-Running Agents',
+    href: 'https://dcyfr.tech/articles/context-window-budget-management',
     category: 'Context Engineering',
-    readingTime: 11,
+    readingTime: 6,
   },
   {
-    title: 'Introducing dcyfr.bot: A Curated Agent Marketplace',
-    href: 'https://dcyfr.tech/articles/dcyfr-bot-agent-marketplace-launch',
-    category: 'Agent Patterns',
+    title: 'Mobile Agent Approvals with Mosh + Tailscale',
+    href: 'https://dcyfr.tech/articles/mosh-mobile-agent-approvals',
+    category: 'Infrastructure',
     readingTime: 5,
   },
 ];
