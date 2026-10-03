@@ -73,7 +73,7 @@ function OrganizationJsonLd() {
         __html: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'Organization',
-          name: 'DCYFR',
+          name: 'DCYFR Labs',
           url: 'https://dcyfr.work',
           description:
             'CLI reference, VS Code extensions, developer profiles, and workspace health tooling for the DCYFR ecosystem.',

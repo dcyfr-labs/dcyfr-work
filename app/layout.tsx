@@ -176,7 +176,7 @@ export default function RootLayout({
               it already appears in page copy at app/page.tsx (the hero badge
               and two card badges), app/profiles/page.tsx and
               app/community/page.tsx, so no information leaves the site. */}
-          <SiteFooter brand="DCYFR" links={FOOTER} />
+          <SiteFooter brand="DCYFR Labs" links={FOOTER} />
           {/* Stays inside the provider. DcyfrToaster reads next-themes'
               resolved theme to pick its palette; hoisting it out beside
               <Analytics /> would strand it on the "system" default and paint
