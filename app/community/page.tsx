@@ -9,18 +9,11 @@ export const metadata: Metadata = {
 
 const COMMUNITY_LINKS = [
   {
-    name: 'GitHub Discussions',
-    description: 'Technical Q&A, feature requests, and architectural discussions.',
-    href: 'https://github.com/dcyfr/dcyfr-workspace/discussions',
+    name: 'GitHub',
+    description: 'Source, issues, and releases for DCYFR Labs open-source projects.',
+    href: 'https://github.com/dcyfr-labs',
     icon: '⬡',
-    label: 'github.com/dcyfr',
-  },
-  {
-    name: 'Discord',
-    description: "Real-time chat with other DCYFR developers. #general, #agents, #rag, #infra.",
-    href: 'https://discord.gg/dcyfr',
-    icon: '◈',
-    label: 'discord.gg/dcyfr',
+    label: 'github.com/dcyfr-labs',
   },
   {
     name: 'dcyfr.tech Blog',
@@ -33,21 +26,21 @@ const COMMUNITY_LINKS = [
 
 const CURATED_ARTICLES = [
   {
-    title: 'Delegation Framework v2: Trustworthy Agent Composition',
-    href: 'https://dcyfr.tech/articles/delegation-framework-v2',
+    title: 'The DCYFR Delegation Framework: Typed Agent Contracts at Scale',
+    href: 'https://dcyfr.tech/articles/delegation-framework-deep-dive',
     category: 'Agent Patterns',
     readingTime: 8,
   },
   {
-    title: 'Context Engineering: Managing Attention Budgets in Long-Running Agents',
-    href: 'https://dcyfr.tech/articles/context-engineering-attention-budgets',
+    title: 'Context Window Budget Management for Long-Running Agents',
+    href: 'https://dcyfr.tech/articles/context-window-budget-management',
     category: 'Context Engineering',
-    readingTime: 11,
+    readingTime: 6,
   },
   {
-    title: 'Introducing dcyfr.bot: A Curated Agent Marketplace',
-    href: 'https://dcyfr.tech/articles/dcyfr-bot-agent-marketplace-launch',
-    category: 'Agent Patterns',
+    title: 'Mobile Agent Approvals with Mosh + Tailscale',
+    href: 'https://dcyfr.tech/articles/mosh-mobile-agent-approvals',
+    category: 'Infrastructure',
     readingTime: 5,
   },
 ];
@@ -61,7 +54,7 @@ export default function CommunityPage() {
           <span className="text-primary text-xl">⊕</span>
           <div>
             <p className="font-semibold text-foreground">Full launch Q1 2027</p>
-            <p className="text-sm text-muted-foreground">Job board and contributor leaderboard coming in Phase 4. Community channels are already live.</p>
+            <p className="text-sm text-muted-foreground">Job board and contributor leaderboard coming in Phase 4. Until then, follow along on GitHub and the dcyfr.tech blog.</p>
           </div>
         </div>
 

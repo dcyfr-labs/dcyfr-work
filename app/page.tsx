@@ -28,9 +28,9 @@ const SECTIONS = [
     icon: '⬡',
     title: 'VS Code Extensions',
     description:
-      'Official DCYFR extensions for Claude Code integration, workspace status, snippet runner, and TLP classification labels.',
+      'Planned DCYFR Labs extensions for Claude Code integration, workspace status, snippet runner, and TLP classification labels.',
     color: 'border-border/40 bg-card/40 hover:border-primary/50',
-    badge: `${(extensionsData as VsCodeExtension[]).length} extensions`,
+    badge: `${(extensionsData as VsCodeExtension[]).length} planned`,
   },
   {
     href: '/profiles',
@@ -78,7 +78,7 @@ function OrganizationJsonLd() {
           description:
             'CLI reference, VS Code extensions, developer profiles, and workspace health tooling for the DCYFR ecosystem.',
           sameAs: [
-            'https://github.com/dcyfr',
+            'https://github.com/dcyfr-labs',
             'https://dcyfr.io',
             'https://dcyfr.app',
             'https://dcyfr.bot',
@@ -173,25 +173,24 @@ export default function HomePage() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {FEATURED_EXTENSIONS.map((ext) => (
-            <a
+            <Link
               key={ext.id}
-              href={ext.marketplaceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/extensions"
               className="group rounded-xl border border-border/40 bg-card/40 hover:border-primary/50 p-5 transition-all"
             >
               <div className="flex items-start justify-between mb-3">
                 <h3 className="font-semibold text-muted-foreground group-hover:text-foreground transition-colors leading-tight">
                   {ext.name}
                 </h3>
-                <span className="shrink-0 ml-2 text-xs text-muted-foreground font-mono">v{ext.version}</span>
+                <span className="shrink-0 ml-2 text-xs text-primary bg-primary/10 border border-primary/40 rounded-full px-2 py-0.5">
+                  {ext.status === 'published' ? 'Published' : 'Planned'}
+                </span>
               </div>
               <p className="text-sm text-muted-foreground mb-3 leading-relaxed line-clamp-2">{ext.description}</p>
-              <div className="flex items-center justify-between text-xs text-muted-foreground">
+              <div className="text-xs text-muted-foreground">
                 <span>{ext.category}</span>
-                <span>{'★'.repeat(Math.round(ext.rating))} {ext.rating}</span>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
