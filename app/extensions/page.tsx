@@ -29,8 +29,8 @@ export default function ExtensionsPage() {
         <div className="mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">VS Code Extensions</h1>
           <p className="text-lg text-muted-foreground">
-            Official DCYFR extensions for VS Code — Claude Code integration, workspace tooling,
-            and developer ergonomics.
+            Planned DCYFR Labs extensions for VS Code — Claude Code integration, workspace tooling,
+            and developer ergonomics. None are on the VS Code Marketplace yet.
           </p>
         </div>
 
@@ -63,7 +63,7 @@ export default function ExtensionsPage() {
 
         {/* Count */}
         <p className="text-sm text-muted-foreground mb-6" aria-live="polite">
-          {filtered.length} extension{filtered.length !== 1 ? 's' : ''}
+          {filtered.length} planned extension{filtered.length !== 1 ? 's' : ''}
           {category !== 'All' && ` in ${category}`}
           {search && ` matching "${search}"`}
         </p>
@@ -102,24 +102,27 @@ export default function ExtensionsPage() {
                   </div>
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <span>{ext.category}</span>
-                    <div className="flex items-center gap-3">
-                      <span>{'★'.repeat(Math.round(ext.rating))} {ext.rating.toFixed(1)}</span>
-                      <span>v{ext.version}</span>
-                    </div>
+                    {ext.version && <span>v{ext.version}</span>}
                   </div>
                 </div>
                 <div className="border-t border-border/30 px-5 py-3 flex items-center justify-between">
-                  <span className="text-xs text-muted-foreground">
-                    {ext.installCount.toLocaleString()} installs
-                  </span>
-                  <a
-                    href={ext.marketplaceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-medium text-primary hover:text-primary transition-colors"
-                  >
-                    Install →
-                  </a>
+                  {ext.status === 'published' && ext.marketplaceUrl ? (
+                    <a
+                      href={ext.marketplaceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-medium text-primary hover:text-primary transition-colors"
+                    >
+                      Install →
+                    </a>
+                  ) : (
+                    <>
+                      <span className="text-xs text-muted-foreground">Not yet on the Marketplace</span>
+                      <span className="text-xs text-primary bg-primary/10 border border-primary/40 rounded-full px-2 py-0.5">
+                        Planned
+                      </span>
+                    </>
+                  )}
                 </div>
               </article>
             ))}

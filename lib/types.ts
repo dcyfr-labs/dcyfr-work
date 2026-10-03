@@ -5,12 +5,12 @@ export interface VsCodeExtension {
   name: string;
   description: string;
   publisher: string;
-  version: string;
   category: 'AI & ML' | 'Productivity' | 'Testing' | 'Linting' | 'Themes' | 'DevOps';
   tags: string[];
-  installCount: number; // approximate
-  rating: number; // 0–5
-  marketplaceUrl: string;
+  // 'planned' until the extension is live on the VS Code Marketplace
+  status: 'planned' | 'published';
+  version?: string; // published only
+  marketplaceUrl?: string; // published only
   featured: boolean;
 }
 
