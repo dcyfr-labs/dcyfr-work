@@ -2,6 +2,7 @@
   "name": "dcyfr-work-portal",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev -p 3306",
     "build": "next build",
