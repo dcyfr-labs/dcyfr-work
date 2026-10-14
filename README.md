@@ -33,11 +33,21 @@ npm run dev        # http://localhost:3306
 - `/community` — community links
 - `/profiles` — developer profiles
 - `/health` — ecosystem status page
+- `/privacy` — privacy notice
+- `/robots.txt`, `/sitemap.xml` — generated from `app/robots.ts` and `app/sitemap.ts`
+- `/indexnow.txt` — IndexNow key file (see Environment variables)
+- `/.well-known/security.txt` — RFC 9116 security contact
 - `GET /api/health` — JSON health check that HEAD-requests `sitemap.xml` on all six sibling sites (io/app/tech/codes/bot/build, 8s timeout each). **Usable as an uptime probe** for the whole family — point external monitoring at `https://dcyfr.work/api/health`.
 
 ## Environment variables
 
-**None required.** No runtime secrets and no server-side integrations beyond the outbound health checks. Note that unlike some siblings (app/io/tech/codes) there is no Sentry instrumentation here — flagged in the 2026-07-11 audit as intentional-or-gap.
+**None required.** One optional variable; no other runtime secrets and no server-side integrations beyond the outbound health checks.
+
+| Variable | Use |
+|---|---|
+| `INDEXNOW_KEY` | Served at `/indexnow.txt` for IndexNow; the route returns 404 when unset |
+
+Note that unlike some siblings (app/io/tech/codes) there is no Sentry instrumentation here — flagged in the 2026-07-11 audit as intentional-or-gap.
 
 ## Design-token & scaffold contract
 
