@@ -23,7 +23,9 @@ npm run dev        # http://localhost:3306
 | `npm run build` | Production build |
 | `npm run lint` / `npm run typecheck` | ESLint / `tsc --noEmit` |
 | `npm run test:e2e` (`:ui`) | Playwright e2e suite |
-| `npm run test:snapshots` (`:update`) | Visual-regression snapshots (chromium) |
+| `npm run test:contrast` | Contrast spec (chromium) |
+| `npm run test:snapshots` (`:update`, `:rebaseline`) | Visual-regression snapshots (chromium) |
+| `npm run check:theme-wiring` | Verifies the theme files, the `globals.css` imports and the `data-identity` stamp |
 
 ## Routes
 
@@ -47,11 +49,11 @@ npm run dev        # http://localhost:3306
 |---|---|
 | `INDEXNOW_KEY` | Served at `/indexnow.txt` for IndexNow; the route returns 404 when unset |
 
-Note that unlike some siblings (app/io/tech/codes) there is no Sentry instrumentation here — flagged in the 2026-07-11 audit as intentional-or-gap.
+Note that unlike the six sibling sites there is no Sentry instrumentation here. The 2026-07-11 audit flagged this as intentional or a gap.
 
 ## Design-token & scaffold contract
 
-This site follows the `dcyfr-site-scaffold` contract: colors, spacing, radii, and typography resolve via CSS variables — no hardcoded design tokens. This repo pioneered the identity font-parity and primitive-color backstop gates now shared across the family. Local ESLint rules in `eslint-local-rules/` enforce the contract and the `design-tokens.yml` workflow gates every PR. From the workspace root, `npm run audit:sites` checks scaffold compliance across the site family.
+This site follows the `dcyfr-site-scaffold` contract: colors, spacing, radii, and typography resolve via CSS variables. This repo pioneered the identity font-parity and primitive-color backstop gates now shared across the family. Local ESLint rules in `eslint-local-rules/` enforce part of this: `no-hardcoded-colors`, `no-deprecated-design-tokens` and `no-legacy-dcyfr-palette` are errors, while `no-hardcoded-spacing` and `no-hardcoded-typography` are switched off in `eslint.config.mjs`. The `design-tokens.yml` workflow gates every PR. From the workspace root, `npm run audit:sites` checks scaffold compliance across the site family.
 
 ## CI
 
